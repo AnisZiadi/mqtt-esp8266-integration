@@ -1,16 +1,17 @@
 #include <ESP8266WiFi.h>
 #include <PubSubClient.h>
+#include "config.h" // Inclut les identifiants Wi-Fi et autres paramètres
 
 // WiFi settings
-const char *ssid = "WIFI_SSID";             // Replace with your WiFi name
-const char *password = "WIFI_PASSWORD";   // Replace with your WiFi password
+const char *ssid = ssid_config;             //  
+const char *password = password_config;     // 
 
 // MQTT Broker settings
-const char *mqtt_broker = "broker.emqx.io";  // EMQX broker endpoint
+const char *mqtt_broker = mqtt_server_config;       // MQTT broker endpoint
 const char *mqtt_topic = "emqx/esp8266";     // MQTT topic
-const char *mqtt_username = "emqx";  // MQTT username for authentication
-const char *mqtt_password = "public";  // MQTT password for authentication
-const int mqtt_port = 1883;  // MQTT port (TCP)
+const char *mqtt_username = mqtt_username_config;        // MQTT username for authentication
+const char *mqtt_password = mqtt_password_config;  // MQTT password for authentication
+const int mqtt_port = mqtt_port_config;  // MQTT port (TCP)
 
 WiFiClient espClient;
 PubSubClient mqtt_client(espClient);
