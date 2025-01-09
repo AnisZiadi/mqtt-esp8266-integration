@@ -1,0 +1,15 @@
+mqtt-esp8266-integration/
+├── src/
+│   ├── main.ino           # Code principal pour Arduino IDE
+│   ├── mqtt_handler.cpp   # Gestion des interactions MQTT (facultatif)
+│   ├── mqtt_handler.h     # Header pour MQTT
+├── examples/
+│   ├── basic_mqtt.ino     # Exemple simple de connexion MQTT
+│   ├── mqtt_with_topics.ino # Exemple d'utilisation avancée des topics MQTT
+├── docs/
+│   ├── README.md          # Documentation détaillée
+│   ├── mqtt_flow.png      # Diagramme de flux MQTT (optionnel)
+├── .gitignore             # Ignorer les fichiers inutiles
+├── LICENSE                # Licence du projet
+├── README.md              # Présentation du projet
+└── platformio.ini         # Configuration PlatformIO (facultatif)
