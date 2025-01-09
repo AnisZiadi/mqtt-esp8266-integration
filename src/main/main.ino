@@ -8,7 +8,7 @@ const char *password = password_config;     //
 
 // MQTT Broker settings
 const char *mqtt_broker = mqtt_server_config;       // MQTT broker endpoint
-const char *mqtt_topic = "emqx/esp8266";     // MQTT topic
+const char *mqtt_topic = "home/window/state";     // MQTT topic
 const char *mqtt_username = mqtt_username_config;        // MQTT username for authentication
 const char *mqtt_password = mqtt_password_config;  // MQTT password for authentication
 const int mqtt_port = mqtt_port_config;  // MQTT port (TCP)
@@ -23,7 +23,7 @@ void connectToMQTTBroker();
 void mqttCallback(char *topic, byte *payload, unsigned int length);
 
 void setup() {
-    Serial.begin(115200);
+    Serial.begin(9600);
     connectToWiFi();
     mqtt_client.setServer(mqtt_broker, mqtt_port);
     mqtt_client.setCallback(mqttCallback);
@@ -48,7 +48,7 @@ void connectToMQTTBroker() {
             Serial.println("Connected to MQTT broker");
             mqtt_client.subscribe(mqtt_topic);
             // Publish message upon successful connection
-            mqtt_client.publish(mqtt_topic, "Hi EMQX I'm ESP8266 ^^");
+            mqtt_client.publish(mqtt_topic, "CLOSED");
         } else {
             Serial.print("Failed to connect to MQTT broker, rc=");
             Serial.print(mqtt_client.state());
