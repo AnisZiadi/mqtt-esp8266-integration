@@ -8,7 +8,8 @@ const char *password = password_config;     //
 
 // MQTT Broker settings
 const char *mqtt_broker = mqtt_server_config;       // MQTT broker endpoint
-const char *mqtt_topic = "home/window/state";     // MQTT topic
+const char *mqtt_topic_window_state = "home/window/state";     // MQTT topic
+const char *mqtt_topic_window_battery = "home/window/battery";     // MQTT topic
 const char *mqtt_username = mqtt_username_config;        // MQTT username for authentication
 const char *mqtt_password = mqtt_password_config;  // MQTT password for authentication
 const int mqtt_port = mqtt_port_config;  // MQTT port (TCP)
@@ -46,9 +47,12 @@ void connectToMQTTBroker() {
         Serial.printf("Connecting to MQTT Broker as %s.....\n", client_id.c_str());
         if (mqtt_client.connect(client_id.c_str(), mqtt_username, mqtt_password)) {
             Serial.println("Connected to MQTT broker");
-            mqtt_client.subscribe(mqtt_topic);
+            // window state
+            mqtt_client.subscribe(mqtt_topic_window_state);
+            //battery pourcentage
+            mqtt_client.subscribe(mqtt_topic_window_battery);
             // Publish message upon successful connection
-            mqtt_client.publish(mqtt_topic, "CLOSED");
+            mqtt_client.publish(mqtt_topic_window_state, "CLOSED");
         } else {
             Serial.print("Failed to connect to MQTT broker, rc=");
             Serial.print(mqtt_client.state());
@@ -74,4 +78,7 @@ void loop() {
         connectToMQTTBroker();
     }
     mqtt_client.loop();
+    // Publish battery pourcentage
+    mqtt_client.publish(mqtt_topic_window_battery, "100");
+    delay(10000); // Envoi toutes les 10 secondes
 }
